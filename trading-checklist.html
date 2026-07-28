@@ -6,6 +6,7 @@
 <meta name="view-transition" content="same-origin">
 <title>Archilect — Trading Checklist</title>
 <script src="js/theme-preboot.js"></script>
+<script src="js/nav-direction-preboot.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/tokens.css">
@@ -113,6 +114,40 @@
       <div class="meta">Score = 10 + checked penalties/bonuses · capped 0–10</div>
       <div class="alerts" id="mc-alerts"><span id="mc-alerts-text"></span></div>
     </div>
+
+    <div class="section-group">
+      <div class="today-date" id="today-date"></div>
+      <div class="section-title"><span class="idx">$</span>Today's USD News</div>
+      <div class="card news-card">
+        <div class="news-form">
+          <div class="news-time-group">
+            <select id="news-hour" class="news-hour-input" data-time-grid aria-label="Hour">
+              <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+              <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+              <option value="7">7</option><option value="8" selected>8</option><option value="9">9</option>
+              <option value="10">10</option><option value="11">11</option><option value="12">12</option>
+            </select>
+            <select id="news-minute" class="news-minute-input" data-time-grid aria-label="Minute">
+              <option value="00" selected>00</option><option value="05">05</option><option value="10">10</option>
+              <option value="15">15</option><option value="20">20</option><option value="25">25</option>
+              <option value="30">30</option><option value="35">35</option><option value="40">40</option>
+              <option value="45">45</option><option value="50">50</option><option value="55">55</option>
+            </select>
+            <div class="ampm-toggle" id="news-ampm">
+              <button type="button" class="ampm-btn active" data-val="AM">AM</button>
+              <button type="button" class="ampm-btn" data-val="PM">PM</button>
+            </div>
+          </div>
+          <input type="text" id="news-text" class="news-text-input" placeholder="e.g. CPI, NFP, FOMC Statement…" aria-label="News event">
+          <button type="button" id="news-add" class="news-add-btn" aria-label="Add news event">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5v11M2.5 8h11"/></svg>
+          </button>
+        </div>
+        <div id="news-list" class="news-list"></div>
+        <div class="empty-state news-empty" id="news-empty">No news logged for today yet.</div>
+      </div>
+    </div>
+
     <div id="mc-sections"></div>
     <div class="panel-nav">
       <button class="nav-btn next" type="button" data-goto="bias"><span>Go to Daily Bias</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button>
@@ -690,9 +725,11 @@
 <script src="components/segmented-toggle.js"></script>
 <script src="components/chip-set.js"></script>
 <script src="js/market-conditions.js"></script>
+<script src="js/usd-news.js"></script>
 <script src="js/bias-pools.js"></script>
 <script src="components/collapsible.js"></script>
 <script src="components/custom-dropdown.js"></script>
+<script src="js/time-grid-picker.js"></script>
 <script src="components/theme-toggle.js"></script>
 <script src="js/bias.js"></script>
 <script src="js/setup.js"></script>

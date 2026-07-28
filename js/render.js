@@ -81,10 +81,15 @@ function recomputeAll(){
     (bias.direction && bias.direction!=="n/a") ? bias.direction : "—";
   const biasPill = document.getElementById("bias-verdict-pill");
   if(bias.conviction !== null){
-    biasPill.textContent = bias.convictionLabel;
-    biasPill.className = "verdict-pill gold";
+    // The direction is already the big text right next to this pill (bias-stars above),
+    // so the pill only ever adds the conviction modifier — Weak / Strong — never repeats
+    // the direction word. A plain (unmodified) conviction shows no pill at all.
+    biasPill.style.display = bias.convictionModifier ? "" : "none";
+    biasPill.textContent = bias.convictionModifier;
+    biasPill.className = "verdict-pill " + (bias.convictionModifier==="Strong" ? "go" : "caution");
   } else {
     const cls = lightClassFor("bias", bias.verdict);
+    biasPill.style.display = "";
     biasPill.textContent = bias.verdict;
     biasPill.className = "verdict-pill " + (cls==="neutral" ? "grey" : cls);
   }
@@ -149,14 +154,20 @@ function recomputeAll(){
   const ssBiasTag = document.getElementById("ss-bias-tag");
   if(bias.direction && bias.direction!=="n/a"){
     ssBiasValue.textContent = bias.direction;
-    ssBiasTag.textContent = bias.conviction!==null ? bias.convictionLabel : "—";
+    // The direction is already shown in the value next to it, so the tag only ever adds
+    // the conviction modifier — Weak / Strong — never repeats the direction word itself.
+    // A plain (unmodified) conviction shows nothing here at all.
+    ssBiasTag.textContent = bias.convictionModifier || "";
+    ssBiasTag.style.display = bias.convictionModifier ? "" : "none";
   } else {
     ssBiasValue.textContent = "—";
     ssBiasTag.textContent = "—";
+    ssBiasTag.style.display = "";
   }
-  // Conviction labels (Weak/Strong) carry the brand gold; the semantic colours stay for the other states.
-  if(bias.conviction !== null){
-    ssBiasTag.className = "ss-tag gold";
+  if(bias.convictionModifier === "Strong"){
+    ssBiasTag.className = "ss-tag go";
+  } else if(bias.convictionModifier === "Weak"){
+    ssBiasTag.className = "ss-tag caution";
   } else {
     const biasLightCls = lightClassFor("bias", bias.verdict);
     ssBiasTag.className = "ss-tag " + (biasLightCls==="neutral" ? "grey" : biasLightCls);

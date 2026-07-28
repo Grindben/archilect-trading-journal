@@ -4,7 +4,9 @@
       "Bash(python3 -c ' *)",
       "Bash(grep -n 'id=\"view-home\"\\\\|</div>$' index.html)",
       "Bash(osascript -l JavaScript)",
-      "Bash(osascript -l JavaScript -e ' *)"
+      "Bash(osascript -l JavaScript -e ' *)",
+      "Bash(python3 - trading-checklist.html)",
+      "Bash(echo \"removed: $?\")"
     ]
   }
 }

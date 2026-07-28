@@ -131,7 +131,9 @@ function enhanceSelect(sel){
   return api;
 }
 
-document.querySelectorAll("select").forEach(enhanceSelect);
+// data-native / data-time-grid opt a <select> out in favour of their own enhancement
+// elsewhere (js/time-grid-picker.js for data-time-grid), so they aren't wrapped twice.
+document.querySelectorAll("select:not([data-native]):not([data-time-grid])").forEach(enhanceSelect);
 
 document.addEventListener("click", e=>{
   if(!openDropdown) return;

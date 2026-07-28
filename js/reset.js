@@ -22,4 +22,6 @@ document.getElementById("resetAllBtn").addEventListener("click", ()=>{
   document.getElementById("rc-nqLevel").value = KEY_LEVELS[0];
   syncSelects();
   recomputeAll();
+  saveNews([]);
+  renderNewsList();
 });

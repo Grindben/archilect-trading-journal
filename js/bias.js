@@ -87,8 +87,11 @@ function computeBias(){
   }
 
   // 1-2 = Weak, 3 = plain direction (no modifier), 4-5 = Strong.
+  const convictionModifier = conviction!==null
+    ? (conviction<=2 ? "Weak" : conviction>=4 ? "Strong" : "")
+    : "";
   const convictionLabel = conviction!==null
-    ? (conviction<=2 ? "Weak " : conviction>=4 ? "Strong " : "") + direction
+    ? (convictionModifier ? convictionModifier+" " : "") + direction
     : "—";
 
   // Draw on liquidity
@@ -111,6 +114,6 @@ function computeBias(){
   }
 
   return {vol, mondayYes, activeBranch, sweepVerdict, asiaHigh, asiaLow, bullPts, bearPts, neutPts, preConv,
-          direction, conviction, convictionLabel, dolResult, verdict};
+          direction, conviction, convictionModifier, convictionLabel, dolResult, verdict};
 }
 function byId(id){ return document.getElementById(id); }
