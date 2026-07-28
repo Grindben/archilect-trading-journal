@@ -1,0 +1,205 @@
+/* ---------- Header ---------- */
+header.app-header{
+  position:sticky; top:0; z-index:30;
+  background:var(--header-bg);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  padding:20px 20px 0 20px;
+}
+.header-top{
+  display:flex; align-items:center; justify-content:space-between;
+  max-width:940px; margin:0 auto; gap:14px;
+}
+.brand{display:flex; flex-direction:column; gap:5px;}
+.brand .mark{
+  font-family:var(--font-brand); font-weight:600; font-size:27px;
+  letter-spacing:.11em; line-height:1; color:var(--ink);
+  text-transform:uppercase;
+}
+.brand .sub{
+  font-size:8px; color:var(--muted); letter-spacing:.34em;
+  text-transform:uppercase; font-weight:400;
+}
+.header-actions{display:flex; align-items:center; gap:9px;}
+.icon-btn{
+  width:36px; height:36px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:transparent; border:1px solid var(--line); border-radius:999px;
+  color:var(--ink-2); cursor:pointer; padding:0;
+}
+.icon-btn:hover{border-color:var(--ink); color:var(--ink); background:var(--bg-alt);}
+.icon-btn svg{width:16px; height:16px; display:block;}
+html:not([data-theme="dark"]) .icon-btn .icon-sun{display:none;}
+html[data-theme="dark"] .icon-btn .icon-moon{display:none;}
+.reset-btn{
+  background:transparent; border:1px solid var(--line); color:var(--ink-2);
+  font-size:12px; font-weight:500;
+  padding:9px 16px; border-radius:999px; cursor:pointer; white-space:nowrap;
+}
+.reset-btn:hover{border-color:var(--ink); color:var(--ink); background:var(--bg-alt);}
+
+/* ---------- Persistent status strip ---------- */
+.status-strip{
+  max-width:940px; margin:16px auto 0 auto;
+  display:flex; align-items:stretch;
+  background:var(--strip-bg); border:1px solid var(--strip-border);
+  border-radius:var(--radius-md); overflow:hidden;
+}
+.status-item{
+  flex:1 1 0; min-width:0;
+  display:flex; flex-direction:column; gap:6px;
+  padding:13px 18px;
+}
+.status-item + .status-item{border-left:1px solid var(--strip-line);}
+.status-item .ss-label{
+  font-size:8.5px; letter-spacing:.2em; color:var(--strip-label);
+  text-transform:uppercase; font-weight:500;
+}
+.status-item .ss-row{display:flex; align-items:center; gap:9px; flex-wrap:wrap;}
+.status-item .ss-value{
+  font-weight:700; font-size:17px; color:var(--strip-fg); white-space:nowrap;
+  letter-spacing:-.02em; font-variant-numeric:tabular-nums;
+  display:grid; grid-template-columns:1fr; opacity:1; margin-right:0;
+  transition:grid-template-columns .32s cubic-bezier(.33,.1,.25,1), opacity .22s ease,
+             margin-right .32s cubic-bezier(.33,.1,.25,1);
+}
+.status-item .ss-value > span{overflow:hidden; min-width:0; display:block;}
+.status-item .ss-value.collapsed-x{grid-template-columns:0fr; opacity:0; margin-right:-9px;}
+.status-item .ss-tag{
+  font-size:9.5px; font-weight:600; letter-spacing:.07em;
+  padding:4px 9px; border-radius:999px; white-space:nowrap; text-transform:uppercase;
+}
+.status-item .ss-tag.go{background:var(--go-soft); color:var(--go);}
+.status-item .ss-tag.stop{background:var(--stop-soft); color:var(--stop);}
+.status-item .ss-tag.caution{background:var(--caution-soft); color:var(--caution);}
+.status-item .ss-tag.grey{background:var(--grey-soft); color:var(--muted);}
+.status-item .ss-tag.gold{background:var(--gold-soft); color:var(--gold);}
+
+/* ---------- Stepper ---------- */
+nav.stepper{
+  max-width:940px; margin:8px auto 0 auto;
+  display:flex; align-items:stretch;
+  overflow-x:auto; -ms-overflow-style:none; scrollbar-width:none;
+}
+nav.stepper::-webkit-scrollbar{display:none;}
+.step{
+  flex:1 1 0; min-width:112px;
+  display:flex; flex-direction:column; align-items:center; gap:7px;
+  padding:12px 4px 13px 4px;
+  cursor:pointer; position:relative; background:none; border:none; color:inherit;
+}
+.step .rail{
+  position:absolute; top:20px; left:-50%; width:100%; height:1.5px;
+  background:var(--line); z-index:0;
+}
+.step:first-child .rail{display:none;}
+.step .light{
+  width:9px; height:9px; border-radius:50%; background:var(--dot-idle);
+  border:2px solid var(--bg); box-shadow:0 0 0 1.5px var(--line);
+  z-index:1; transition:.25s;
+}
+.step .light.go{background:var(--go); box-shadow:0 0 0 1.5px var(--go-line);}
+.step .light.stop{background:var(--stop); box-shadow:0 0 0 1.5px var(--stop-line);}
+.step .light.caution{background:var(--caution); box-shadow:0 0 0 1.5px var(--caution-line);}
+.step .light.neutral{background:var(--ink); box-shadow:0 0 0 1.5px var(--dot-ring);}
+.step .num{font-size:9.5px; color:var(--faint); font-weight:500; letter-spacing:.08em;}
+.step .label{font-size:12.5px; font-weight:600; color:var(--muted); letter-spacing:-.005em;}
+.step.active .label{color:var(--ink);}
+.step .stateline{font-size:10px; color:var(--faint); font-variant-numeric:tabular-nums;}
+
+/* ---------- Layout ---------- */
+main{max-width:940px; margin:0 auto; padding:30px 20px 48px 20px;}
+.panel{display:none;}
+.panel.active{display:block; animation:fade .52s cubic-bezier(.22,.61,.36,1);}
+@keyframes fade{from{opacity:0; transform:translateY(9px);} to{opacity:1; transform:translateY(0);}}
+
+/* ---------- Cross-page transitions ---------- */
+/* Two layers. The View Transitions API (opt-in via <meta name="view-transition"
+   content="same-origin"> in every page's <head>) where the browser supports cross-document
+   transitions on this origin. Underneath it, js/page-transitions.js drives a plain opacity
+   fade that works everywhere else too — notably two file:// documents, which some browsers
+   treat as different origins and simply skip the API for. */
+::view-transition-old(root){ animation: page-fade-out .18s cubic-bezier(.4,0,1,1) both; }
+::view-transition-new(root){ animation: page-fade-in .2s cubic-bezier(.22,.61,.36,1) both; }
+@keyframes page-fade-out{ from{opacity:1;} to{opacity:0;} }
+@keyframes page-fade-in{ from{opacity:0;} to{opacity:1;} }
+
+/* One mechanism only — a CSS `animation` and a `transition` on the same property fight each
+   other (animations win the cascade), which is why an earlier version of this looked like a
+   dead pause instead of a fade. Entrance reuses the .booting class every page already starts
+   with and clears via requestAnimationFrame, so there's nothing extra to wire up. */
+/* `transition` is a shorthand — a second declaration replaces rather than merges with
+   tokens.css's body{transition:background-color...} theme crossfade, so everything body
+   needs to transition has to be listed together here (this rule loads after tokens.css). */
+body{
+  transform-origin:50% 40%;
+  transition:opacity .18s cubic-bezier(.22,.61,.36,1), transform .18s cubic-bezier(.22,.61,.36,1),
+    background-color .22s ease, border-color .22s ease, color .22s ease;
+}
+body.booting{ opacity:0; transform:scale(.985) translateY(4px); }
+body.page-out{ opacity:0; transform:scale(1.015); pointer-events:none; }
+
+@media (prefers-reduced-motion:reduce){
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*){ animation:none !important; }
+  body{ transition:none; }
+}
+
+/* ---------- Summary ---------- */
+.summary{
+  border:1px solid var(--line); background:var(--surface);
+  border-radius:var(--radius); padding:22px 24px; margin-bottom:26px;
+  display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between;
+  box-shadow:var(--shadow-sm);
+}
+.summary .verdict-block{display:flex; align-items:center; gap:14px; min-width:0;}
+.verdict-pill{
+  font-weight:600; font-size:12px; letter-spacing:.02em;
+  padding:7px 14px; border-radius:999px; white-space:nowrap;
+}
+.verdict-pill.go{background:var(--go-soft); color:var(--go); border:1px solid var(--go-line);}
+.verdict-pill.stop{background:var(--stop-soft); color:var(--stop); border:1px solid var(--stop-line);}
+.verdict-pill.caution{background:var(--caution-soft); color:var(--caution); border:1px solid var(--caution-line);}
+.verdict-pill.grey{background:var(--grey-soft); color:var(--muted); border:1px solid var(--line);}
+.verdict-pill.gold{background:var(--gold-soft); color:var(--gold); border:1px solid var(--gold-line);}
+.summary .score{
+  font-size:36px; font-weight:700; letter-spacing:-.035em; line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.summary .score .of10{font-size:15px; color:var(--faint); font-weight:500; letter-spacing:-.01em;}
+/* Collapses sideways so the verdict pill slides across, matching the header strip. */
+.summary .score.score-collapse{
+  display:grid; grid-template-columns:1fr; opacity:1; margin-right:0;
+  transition:grid-template-columns .32s cubic-bezier(.33,.1,.25,1), opacity .22s ease,
+             margin-right .32s cubic-bezier(.33,.1,.25,1);
+}
+.summary .score.score-collapse > span{overflow:hidden; min-width:0; display:block; white-space:nowrap;}
+.summary .score.score-collapse.collapsed-x{grid-template-columns:0fr; opacity:0; margin-right:-14px;}
+.summary .meta{font-size:12.5px; color:var(--muted); max-width:100%;}
+.summary .alerts{
+  width:100%; font-size:12.5px; color:var(--caution); font-weight:500;
+  border-top:1px solid transparent; margin-top:0; padding-top:0;
+  display:grid; grid-template-rows:0fr; opacity:0;
+  transition:grid-template-rows .34s cubic-bezier(.33,.1,.25,1), opacity .2s ease,
+             margin-top .34s cubic-bezier(.33,.1,.25,1), padding-top .34s cubic-bezier(.33,.1,.25,1),
+             border-top-color .3s ease;
+}
+.summary .alerts > span{overflow:hidden; min-height:0; display:block;}
+.summary .alerts.show{
+  grid-template-rows:1fr; opacity:1;
+  border-top-color:var(--line); margin-top:16px; padding-top:16px;
+}
+
+/* ---------- Sections ---------- */
+.section-group{margin-bottom:26px;}
+.section-title{
+  font-size:21px; font-weight:700; letter-spacing:-.028em;
+  color:var(--ink); margin:0 0 12px 2px; display:flex; align-items:baseline; gap:11px;
+}
+.section-title .idx{
+  font-size:11px; font-weight:600; color:var(--faint); letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.card{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  overflow:hidden; box-shadow:var(--shadow-sm);
+}

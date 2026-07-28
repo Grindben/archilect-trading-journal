@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="view-transition" content="same-origin">
+<title>Archilect — Trading Journal</title>
+<script src="js/theme-preboot.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/journal-widget.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/journal-page.css">
+<link rel="stylesheet" href="css/navigation.css">
+</head>
+<body class="booting no-stepper">
+
+<header class="app-header">
+  <div class="header-top">
+    <a class="brand" href="index.html" aria-label="Back to Dashboard">
+      <span class="mark">Archilect</span>
+      <span class="sub">Capital Management</span>
+    </a>
+    <nav class="home-nav">
+      <a class="home-navlink" href="trading-checklist.html">Trading Checklist</a>
+      <a class="home-navlink on" href="trading-journal.html">Trading Journal</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Toggle day / night theme" title="Toggle day / night theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="header-cta" id="loginBtn" type="button">Log In</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+    <section class="j-head">
+      <div>
+        <h1 class="j-title">Trading Journal</h1>
+        <p class="j-sub">One row per trade. Enter what you know — the rest is calculated.</p>
+      </div>
+      <div class="j-head-actions">
+        <button class="tool-btn" id="j2-export" type="button">Export CSV</button>
+        <button class="tool-btn" id="j2-import" type="button">Import CSV</button>
+        <input type="file" id="j2-file" accept=".csv,text/csv" hidden>
+        <button class="header-cta" id="j2-toggleForm" type="button">+ New trade</button>
+      </div>
+    </section>
+
+    <div class="stat-grid" id="j2-stats"></div>
+
+    <div class="card j2-chartcard">
+      <div class="j2-chart-head"><div>
+        <span class="j2-chart-label">Equity curve</span>
+        <span class="j2-chart-sub" id="j2-chart-sub">—</span>
+      </div></div>
+      <div id="j2-chart"></div>
+    </div>
+
+    <div class="collapsible collapsed" id="j2-form-wrap"><div class="collapse-inner">
+    <div class="card j2-form">
+      <div class="j2-group"><div class="j2-group-title">Open position</div><div class="jf-grid">
+        <div class="jf"><label>Entry date / time</label><input id="f-entryDT" type="datetime-local" placeholder=""></div>
+        <div class="jf"><label>Account</label><select id="f-account"><option value="50k TopStep Chall">50k TopStep Chall</option><option value="50k TopStep 1">50k TopStep 1</option><option value="Account 1">Account 1</option><option value="None">None</option></select></div>
+        <div class="jf"><label>Starting balance ($)</label><input id="f-startBal" type="number" placeholder="50000" step="any"></div>
+        <div class="jf"><label>Direction</label><select id="f-direction"><option value="BUY">BUY</option><option value="SELL">SELL</option></select></div>
+        <div class="jf"><label>Contracts</label><input id="f-contracts" type="number" placeholder="1" step="1"></div>
+        <div class="jf"><label>Asset</label><select id="f-asset"><option value="MES">MES</option><option value="MNQ">MNQ</option><option value="ES">ES</option><option value="NQ">NQ</option></select></div>
+        <div class="jf"><label>Strategy</label><select id="f-strategy"><option value="2 Stages">2 Stages</option><option value="Reverse">Reverse</option><option value="Catch Up">Catch Up</option><option value="None">None</option></select></div>
+        <div class="jf"><label>Timeframe</label><select id="f-timeframe"><option value="15sec">15sec</option><option value="1min">1min</option><option value="5min">5min</option><option value="15min">15min</option><option value="1hr">1hr</option></select></div>
+        <div class="jf"><label>Entry price</label><input id="f-entryPrice" type="number" placeholder="" step="any"></div>
+        <div class="jf"><label>Stop loss price</label><input id="f-stopPrice" type="number" placeholder="" step="any"></div>
+        <div class="jf"><label>Take profit price</label><input id="f-tpPrice" type="number" placeholder="" step="any"></div>
+        <div class="jf"><label>Commission in ($)</label><input id="f-commIn" type="number" placeholder="" step="any"></div>
+      </div></div>
+      <div class="j2-group"><div class="j2-group-title">Close position</div><div class="jf-grid">
+        <div class="jf"><label>Status</label><select id="f-status"><option value="CLOSED">CLOSED</option><option value="OPEN">OPEN</option><option value="MISSED">MISSED</option></select></div>
+        <div class="jf"><label>Exit date / time</label><input id="f-exitDT" type="datetime-local" placeholder=""></div>
+        <div class="jf"><label>Net exit price</label><input id="f-exitPrice" type="number" placeholder="" step="any"></div>
+        <div class="jf"><label>Commission out ($)</label><input id="f-commOut" type="number" placeholder="" step="any"></div>
+        <div class="jf"><label>Deposit / withdrawal ($)</label><input id="f-deposit" type="number" placeholder="" step="any"></div>
+      </div></div>
+      <div class="j2-group"><div class="j2-group-title">Result <span class="j2-note">used when prices are left blank</span></div><div class="jf-grid">
+        <div class="jf"><label>Result</label><select id="f-result"><option value="TP">TP</option><option value="SL">SL</option><option value="BE">BE</option><option value="Missed">Missed</option></select></div>
+        <div class="jf"><label>R multiple</label><input id="f-rr" type="number" placeholder="" step="any"></div>
+        <div class="jf"><label>Risk % (0.005 = 0.5%)</label><input id="f-riskPct" type="number" placeholder="" step="any"></div>
+        <div class="jf"><label>Result % (0.02 = 2%)</label><input id="f-resultPct" type="number" placeholder="" step="any"></div>
+      </div></div>
+      <div class="j2-group"><div class="j2-group-title">Review</div><div class="jf-grid">
+        <div class="jf"><label>Bias</label><select id="f-bias"><option value="Strong Bullish">Strong Bullish</option><option value="Bullish">Bullish</option><option value="Weak Bullish">Weak Bullish</option><option value="None">None</option><option value="Weak Bearish">Weak Bearish</option><option value="Bearish">Bearish</option><option value="Strong Bearish">Strong Bearish</option></select></div>
+        <div class="jf"><label>Entry model</label><select id="f-entryModel"><option value="FVG">FVG</option><option value="BPR">BPR</option><option value="OB">OB</option><option value="PSP">PSP</option><option value="None">None</option></select></div>
+        <div class="jf"><label>News</label><select id="f-news"><option value="None">None</option><option value="8:30am">8:30am</option><option value="9:45am">9:45am</option><option value="10:00am">10:00am</option><option value="2:00pm">2:00pm</option><option value="9:00pm">9:00pm</option></select></div>
+        <div class="jf"><label>One lead divergent</label><select id="f-lead"><option value="Oui">Oui</option><option value="Non">Non</option></select></div>
+        <div class="jf"><label>Q3</label><select id="f-q3"><option value="Oui">Oui</option><option value="Non">Non</option></select></div>
+        <div class="jf"><label>Checklist / 5</label><input id="f-checklist" type="number" placeholder="" step="0.1"></div>
+      </div>
+        <div class="jf-wide"><div class="jf"><label>Stages</label><div class="chipset" id="f-stages"><button type="button" class="chip" data-val="90' SSMT">90' SSMT</button><button type="button" class="chip" data-val="Daily SSMT">Daily SSMT</button><button type="button" class="chip" data-val="Micro SSMT">Micro SSMT</button><button type="button" class="chip" data-val="Weekly SSMT">Weekly SSMT</button><button type="button" class="chip" data-val="MSB">MSB</button><button type="button" class="chip" data-val="CSD">CSD</button><button type="button" class="chip" data-val="PSP">PSP</button><button type="button" class="chip" data-val="SPR">SPR</button><button type="button" class="chip" data-val="Invalidation of Key Levels">Invalidation of Key Levels</button><button type="button" class="chip" data-val="None">None</button></div></div></div>
+        <div class="jf-wide"><div class="jf"><label>Target</label><div class="chipset" id="f-target"><button type="button" class="chip" data-val="SD Level">SD Level</button><button type="button" class="chip" data-val="PDH/L">PDH/L</button><button type="button" class="chip" data-val="NDOG/NWOG">NDOG/NWOG</button><button type="button" class="chip" data-val="1hr / 4hr Key Level">1hr / 4hr Key Level</button><button type="button" class="chip" data-val="None">None</button></div></div></div>
+        <div class="jf-wide"><div class="jf"><label>Emotions</label><div class="chipset" id="f-emotions"><button type="button" class="chip" data-val="Neutral">Neutral</button><button type="button" class="chip" data-val="Calm">Calm</button><button type="button" class="chip" data-val="Focus">Focus</button><button type="button" class="chip" data-val="Patient">Patient</button><button type="button" class="chip" data-val="Anxious">Anxious</button><button type="button" class="chip" data-val="Doubtful">Doubtful</button><button type="button" class="chip" data-val="Fearful">Fearful</button><button type="button" class="chip" data-val="FOMO">FOMO</button><button type="button" class="chip" data-val="Greed">Greed</button><button type="button" class="chip" data-val="Impulsive">Impulsive</button><button type="button" class="chip" data-val="Frustrated">Frustrated</button><button type="button" class="chip" data-val="Revenge">Revenge</button></div></div></div>
+        <div class="jf-wide"><div class="jf"><label>Mistake</label><div class="chipset" id="f-mistake"><button type="button" class="chip" data-val="None">None</button><button type="button" class="chip" data-val="Execution">Execution</button><button type="button" class="chip" data-val="Psychology">Psychology</button><button type="button" class="chip" data-val="Risk Management">Risk Management</button><button type="button" class="chip" data-val="Trade Management">Trade Management</button><button type="button" class="chip" data-val="Bias">Bias</button><button type="button" class="chip" data-val="Narrative">Narrative</button><button type="button" class="chip" data-val="Market Conditions">Market Conditions</button></div></div></div>
+        <div class="jf-wide"><div class="jf"><label>Notes</label><textarea id="f-notes" rows="3" placeholder="What happened, and what would you repeat or avoid?"></textarea></div></div>
+      </div>
+      <div class="j2-preview" id="j2-preview"></div>
+      <div class="j2-formbar">
+        <button class="tool-btn" id="j2-cancel" type="button">Cancel</button>
+        <button class="save-btn" id="j2-save" type="button" style="width:auto;">Save trade</button>
+      </div>
+    </div>
+    </div></div>
+
+    <div class="j2-filters">
+      <select id="j2-fAccount"><option value="">All accounts</option></select>
+      <select id="j2-fAsset"><option value="">All assets</option></select>
+      <select id="j2-fResult"><option value="">All results</option></select>
+      <select id="j2-fStrategy"><option value="">All strategies</option></select>
+      <button class="tool-btn danger" id="j2-clear" type="button">Clear journal</button>
+    </div>
+
+    <div class="j2-tablewrap card">
+      <table class="j2-table"><thead><tr>
+        <th>#</th><th>Date</th><th>Asset</th><th>Dir</th><th>Strategy</th><th>Result</th>
+        <th class="num">R</th><th class="num">P&amp;L</th><th class="num">%</th>
+        <th class="num">Cumulative</th><th class="num">Balance</th><th></th>
+      </tr></thead><tbody id="j2-tbody"></tbody></table>
+      <div class="empty-state" id="j2-empty">No trades logged yet. Use <b>+ New trade</b> to add the first one, or import a CSV.</div>
+    </div>
+
+</main>
+
+<footer class="credit">Local tool — all data stays in this file / your browser. No connection required after the first load.</footer>
+
+<script src="components/chip-set.js"></script>
+<script src="components/custom-dropdown.js"></script>
+<script src="components/theme-toggle.js"></script>
+<script src="js/trading-journal-engine.js"></script>
+<script src="js/trading-journal-form.js"></script>
+<script src="js/trading-journal-csv.js"></script>
+<script src="js/journal-init.js"></script>
+<script src="js/page-transitions.js"></script>
+</body>
+</html>

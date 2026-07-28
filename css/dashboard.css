@@ -1,0 +1,30 @@
+/* ============================================================
+   DASHBOARD — accounts grid, objective progress bar
+   ============================================================ */
+.dashboard-section{margin-top:34px;}
+.dash-accounts-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px;}
+.dash-account-card{padding:16px 18px;}
+.dash-account-card .calc-row .k{font-weight:600; color:var(--ink);}
+.calc-row .v.pos{color:var(--go);}
+.calc-row .v.neg{color:var(--stop);}
+
+.obj-progress{margin-top:4px;}
+.obj-row{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; gap:12px;}
+.obj-amounts{font-size:15px; font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums;}
+.obj-amounts .of{font-weight:500; color:var(--muted);}
+.obj-pct{font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums;}
+.progress-track{background:var(--bg-alt); border-radius:999px; height:10px; overflow:hidden;}
+.progress-fill{height:100%; background:var(--go); border-radius:999px; width:0%; transition:width .3s ease;}
+.obj-note{font-size:12.5px; color:var(--muted); margin-top:10px;}
+.obj-note.neg{color:var(--stop);}
+.obj-edit-link{background:none; border:none; padding:0; color:var(--faint); font-size:12px; cursor:pointer; text-decoration:underline; text-underline-offset:2px; margin-top:12px;}
+.obj-edit-link:hover{color:var(--ink);}
+.obj-form{display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end;}
+.obj-form .jf{min-width:150px;}
+.obj-empty{font-size:13.5px; color:var(--muted); margin-bottom:14px; line-height:1.6;}
+
+.dash-checklist-note{font-size:11px; color:#8b8c95; margin-top:10px; display:block;}
+
+@media (max-width:560px){
+  .dash-accounts-grid{grid-template-columns:1fr;}
+}

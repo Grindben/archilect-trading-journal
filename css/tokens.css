@@ -1,0 +1,122 @@
+/* ============================================================
+   THEME TOKENS
+   Light is the default; [data-theme="dark"] on <html> overrides.
+   Every colour below is a token so the two themes stay in sync.
+   ============================================================ */
+:root{
+  --bg:#ffffff;
+  --surface:#ffffff;
+  --menu-bg:#ffffff;
+  --bg-alt:#f4f4f6;
+  --hover:#fafafb;
+  --ink:#0b0b0d;
+  --ink-2:#3d3e44;
+  --muted:#6f7079;
+  --faint:#9b9ca4;
+  --line:#e5e5e9;
+  --line-strong:#c9cad0;
+  --line-soft:#eeeef1;
+  --header-bg:rgba(255,255,255,.92);
+  --strip-bg:#f4f4f6;
+  --strip-border:var(--line);
+  --strip-line:var(--line);
+  --strip-fg:var(--ink);
+  --strip-label:var(--muted);
+  --darkcard-bg:#0d0e11;
+  --darkcard-line:transparent;
+  --btn-bg:#0b0b0d;
+  --btn-fg:#ffffff;
+  --btn-bg-hover:#26272d;
+  --focus-ring:rgba(13,14,17,.07);
+  --dot-idle:#c9cad0;
+  --dot-ring:#d3d4d9;
+  --selection:#dfe0e4;
+  --gold:#c09343;
+  --gold-soft:rgba(192,147,67,.10);
+  --gold-line:rgba(192,147,67,.30);
+  --go:#0d8a5c;
+  --go-soft:#e6f5ef;
+  --go-line:#bfe3d4;
+  --stop:#c62f22;
+  --stop-soft:#fbebe9;
+  --stop-line:#f3c9c4;
+  --caution:#a97407;
+  --caution-soft:#fcf3e2;
+  --caution-line:#eeddb9;
+  --grey-soft:#f1f1f4;
+  --shadow-sm:0 1px 2px rgba(13,14,17,.05);
+  --shadow-lg:0 18px 44px rgba(13,14,17,.14);
+  --chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%236f7079' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --font-brand:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --font-body:'DM Sans',ui-sans-serif,-apple-system,'Segoe UI',sans-serif;
+  --font-mono:'DM Mono',ui-monospace,'SF Mono',monospace;
+  --radius:20px;
+  --radius-md:14px;
+  --radius-sm:10px;
+  color-scheme:light;
+}
+html[data-theme="dark"]{
+  --picker-filter:invert(1);
+  --bg:#0a0b0d;
+  --surface:#141519;
+  --menu-bg:#1b1c22;
+  --bg-alt:#1b1c21;
+  --hover:#1a1b20;
+  --ink:#f2f2f4;
+  --ink-2:#c3c4ca;
+  --muted:#8b8c95;
+  --faint:#6a6b74;
+  --line:#26272d;
+  --line-strong:#3a3b43;
+  --line-soft:#1f2025;
+  --header-bg:rgba(10,11,13,.90);
+  --strip-bg:#1b1c22;
+  --strip-border:#2a2b31;
+  --strip-line:#2f3038;
+  --strip-fg:#f2f2f4;
+  --strip-label:#8b8c95;
+  --darkcard-bg:#1b1c22;
+  --darkcard-line:#2a2b31;
+  --btn-bg:#f2f2f4;
+  --btn-fg:#0a0b0d;
+  --btn-bg-hover:#dcdce0;
+  --focus-ring:rgba(242,242,244,.13);
+  --dot-idle:#3a3b43;
+  --dot-ring:#2f3038;
+  --selection:#2f3038;
+  --gold:#dabb6f;
+  --gold-soft:rgba(218,187,111,.12);
+  --gold-line:rgba(218,187,111,.32);
+  --go:#3fbf8a;
+  --go-soft:rgba(63,191,138,.14);
+  --go-line:rgba(63,191,138,.30);
+  --stop:#f0776a;
+  --stop-soft:rgba(240,119,106,.14);
+  --stop-line:rgba(240,119,106,.30);
+  --caution:#e0b25c;
+  --caution-soft:rgba(224,178,92,.14);
+  --caution-line:rgba(224,178,92,.30);
+  --grey-soft:#22232a;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.40);
+  --shadow-lg:0 20px 48px rgba(0,0,0,.62);
+  --chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%238b8c95' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:15px;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:72px;
+}
+button{font-family:inherit;}
+::selection{background:var(--selection);}
+/* Only the surfaces cross-fade when the theme flips; everything else swaps instantly. */
+body, header.app-header, .card, .summary, .status-strip, .entry, .snap-card,
+.empty-state, .cselect-trigger, .seg-btn, .tool-btn, .reset-btn, .icon-btn{
+  transition:background-color .22s ease, border-color .22s ease, color .22s ease;
+}
