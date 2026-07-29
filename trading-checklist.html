@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="view-transition" content="same-origin">
 <title>Archilect — Trading Checklist</title>
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 <script src="js/theme-preboot.js"></script>
 <script src="js/nav-direction-preboot.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -119,7 +123,7 @@
       <div class="today-date" id="today-date"></div>
       <div class="section-title"><span class="idx">$</span>Today's USD News</div>
       <div class="card news-card">
-        <div class="news-form">
+        <div class="news-form" id="news-form">
           <div class="news-time-group">
             <select id="news-hour" class="news-hour-input" data-time-grid aria-label="Hour">
               <option value="1">1</option><option value="2">2</option><option value="3">3</option>
@@ -144,11 +148,15 @@
           </button>
         </div>
         <div id="news-list" class="news-list"></div>
-        <div class="empty-state news-empty" id="news-empty">No news logged for today yet.</div>
+        <div class="empty-state news-empty" id="news-empty">No news for today.</div>
       </div>
     </div>
 
     <div id="mc-sections"></div>
+    <div class="mc-validate-bar" id="mc-validate-bar">
+      <button class="save-btn" id="mc-validate-btn" type="button">Validate criteria</button>
+      <button class="tool-btn" id="mc-edit-btn" type="button" style="display:none;">Edit criteria</button>
+    </div>
     <div class="panel-nav">
       <button class="nav-btn next" type="button" data-goto="bias"><span>Go to Daily Bias</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button>
     </div>
@@ -270,6 +278,10 @@
         <div class="calc-row"><span class="k">Verdict</span><span class="v" id="b-verdict">—</span></div>
       </div>
     </div>
+    <div class="mc-validate-bar" id="bias-validate-bar">
+      <button class="save-btn" id="bias-validate-btn" type="button">Validate criteria</button>
+      <button class="tool-btn" id="bias-edit-btn" type="button" style="display:none;">Edit criteria</button>
+    </div>
     <div class="panel-nav">
       <button class="nav-btn back" type="button" data-goto="conditions"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg><span>Return to Market Conditions</span></button>
       <button class="nav-btn next" type="button" data-goto="setup"><span>Go to Setup</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button>
@@ -364,7 +376,7 @@
     </div>
 
     <div class="section-group">
-      <div class="section-title"><span class="idx">i</span>SPR Scoring Guide</div>
+      <div class="section-title"><span class="idx">i</span>Scoring Guide</div>
       <div class="card" style="padding:4px 10px;">
         <table class="guide-table">
           <thead><tr><th>Grade</th><th>Reading</th><th>Funded</th><th>Challenge</th></tr></thead>
@@ -732,6 +744,7 @@
 <script src="js/time-grid-picker.js"></script>
 <script src="components/theme-toggle.js"></script>
 <script src="js/bias.js"></script>
+<script src="js/bias-lock.js"></script>
 <script src="js/setup.js"></script>
 <script src="js/render.js"></script>
 <script src="js/checklist-state.js"></script>

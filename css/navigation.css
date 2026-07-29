@@ -1,3 +1,18 @@
+/* Shared by every panel's validate/edit pair (Market Conditions, Bias, ...) — targets by
+   class, not id, so any panel can reuse it just by giving its two buttons .save-btn/.tool-btn. */
+.mc-validate-bar{margin-top:20px;}
+.mc-validate-bar .tool-btn{width:100%; padding:12px 20px; text-align:center;}
+/* Plays automatically whenever either button goes from display:none to visible — a plain
+   display swap can't be transitioned, but a CSS animation restarts every time an element
+   re-enters the render tree, so no extra JS is needed for the pop-in. */
+.mc-validate-bar .save-btn, .mc-validate-bar .tool-btn{
+  animation:mc-btn-pop .28s cubic-bezier(.22,.61,.36,1) both;
+}
+@keyframes mc-btn-pop{from{opacity:0; transform:translateY(5px) scale(.98);} to{opacity:1; transform:translateY(0) scale(1);}}
+@media (prefers-reduced-motion:reduce){
+  .mc-validate-bar .save-btn, .mc-validate-bar .tool-btn{animation:none !important;}
+}
+
 /* ---------- Bottom-of-panel navigation ---------- */
 .panel-nav{
   display:flex; align-items:center; gap:12px; flex-wrap:wrap;
@@ -11,6 +26,8 @@
   transition:background-color .16s ease, border-color .16s ease, color .16s ease;
 }
 .nav-btn svg{width:15px; height:15px; flex-shrink:0;}
+/* Locked until the previous step is validated (js/router.js applyStepGating). */
+.nav-btn:disabled{cursor:not-allowed; opacity:.45; background:var(--bg-alt); border-color:var(--line); color:var(--faint);}
 .nav-btn.next{background:var(--btn-bg); color:var(--btn-fg); border:1px solid var(--btn-bg);}
 .nav-btn.next:hover{background:var(--btn-bg-hover); border-color:var(--btn-bg-hover);}
 .nav-btn.back{background:transparent; color:var(--ink-2); border:1px solid var(--line);}

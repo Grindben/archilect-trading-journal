@@ -4,7 +4,10 @@
   padding:14px 18px; border-bottom:1px solid var(--line-soft);
   border-left:3px solid transparent; transition:background-color .14s ease;
 }
-.item:last-child{border-bottom:none;}
+/* .item is now wrapped in a .collapsible for the Market Conditions list (see
+   js/market-conditions.js), so it's always its own parent's only child — target the
+   wrapper's last-child status instead, or every item would match this. */
+.card > .collapsible:last-child .item{border-bottom:none;}
 .item:hover{background:var(--hover);}
 .item.type-stop{border-left-color:var(--stop);}
 .item.type-bonus{border-left-color:var(--go);}
@@ -40,6 +43,11 @@
   font-size:12.5px; font-weight:600; cursor:pointer; min-width:52px;
 }
 .seg-btn:hover{border-color:var(--line-strong); color:var(--ink);}
+/* Validated/showcase state (js/bias-lock.js): the answered button stays as a plain badge,
+   its unanswered sibling disappears, and disabled blocks pointer + keyboard interaction. */
+.seg-btn:disabled{cursor:default;}
+.seg-btn:disabled:not(.active){display:none;}
+.seg-btn:disabled:hover{border-color:var(--line); color:inherit;}
 .seg-btn.active{background:var(--btn-bg); border-color:var(--btn-bg); color:var(--btn-fg);}
 .seg-btn.active:hover{background:var(--btn-bg); color:var(--btn-fg);}
 .seg-btn.active.sel-no{background:var(--grey-soft); border-color:var(--line); color:var(--ink-2);}
@@ -105,6 +113,12 @@ select{
 }
 .cselect-trigger:hover{border-color:var(--line-strong);}
 .cselect-trigger:focus-visible{outline:none; border-color:var(--ink); box-shadow:0 0 0 3px var(--focus-ring);}
+/* Validated/showcase state (js/bias-lock.js) — reads as a plain label instead of a control. */
+.cselect-trigger:disabled{
+  cursor:default; background:var(--bg-alt); border-color:transparent; color:var(--ink);
+}
+.cselect-trigger:disabled:hover{border-color:transparent;}
+.cselect-trigger:disabled .cselect-chev{display:none;}
 .cselect.open .cselect-trigger{border-color:var(--ink); box-shadow:0 0 0 3px var(--focus-ring);}
 .cselect-chev{flex-shrink:0; transition:transform .24s cubic-bezier(.33,.1,.25,1);}
 .cselect-chev path{fill:none; stroke:var(--muted); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;}
@@ -143,6 +157,11 @@ select{
 .calc-row:last-child{border-bottom:none;}
 .calc-row .k{color:var(--muted);}
 .calc-row .v{font-weight:600; color:var(--ink); text-align:right; font-variant-numeric:tabular-nums;}
+.calc-row .v.go{color:var(--go);}
+.calc-row .v.stop{color:var(--stop);}
+.calc-row .v.caution{color:var(--caution);}
+.calc-row .v.aplus{color:var(--go-deep);}
+.calc-row .v.gold{color:var(--gold);}
 .hint{font-size:12.5px; color:var(--muted); margin:10px 2px 16px 2px; line-height:1.6;}
 
 /* ---------- Collapse animation ---------- */
@@ -178,10 +197,12 @@ body.booting .status-item .ss-value{transition:none !important;}
 }
 .guide-table td{color:var(--ink-2);}
 .guide-table td.grade{font-weight:700; font-size:14px;}
-.grade-aplus{color:var(--go);}
-.grade-a{color:var(--ink);}
-.grade-b{color:var(--caution);}
-.grade-bminus{color:var(--stop);}
+/* .guide-table td already sets color at (0,1,1) specificity — a bare .grade-aplus class
+   alone (0,1,0) loses to it, so these need the td.grade- qualifier to actually win. */
+.guide-table td.grade-aplus{color:var(--go-deep);}
+.guide-table td.grade-a{color:var(--go);}
+.guide-table td.grade-b{color:var(--caution);}
+.guide-table td.grade-bminus{color:var(--stop);}
 
 /* ---------- Modal (trade review prompt) ---------- */
 .modal-overlay{

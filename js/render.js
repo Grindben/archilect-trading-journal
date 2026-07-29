@@ -30,6 +30,27 @@ function lightClassFor(kind, value){
     return "neutral";
   }
 }
+// A plain Bearish/Bullish direction is spelled out as "Bearish Bias"/"Bullish Bias" and
+// colour-coded (red/green) everywhere it's shown as the headline direction — other states
+// (Neutral, No Bias, Wait for..., n/a) are left as-is, they're not what was asked for.
+function formatBiasDirection(direction){
+  if(direction==="Bearish") return {text:"Bearish Bias", cls:"stop"};
+  if(direction==="Bullish") return {text:"Bullish Bias", cls:"go"};
+  return {text:(direction && direction!=="n/a") ? direction : "—", cls:""};
+}
+// "BEARISH BIAS" -> "Bearish Bias" — the verdict is computed all-uppercase (bias.js), this
+// is purely a display transform for the Result row.
+function toTitleCase(str){
+  return String(str).toLowerCase().replace(/\b\w/g, c=>c.toUpperCase());
+}
+// A+ gets its own deeper emerald so it still reads as a cut above plain A at a glance.
+function gradeColorClass(grade){
+  if(grade==="A+") return "aplus";
+  if(grade==="A") return "go";
+  if(grade==="B") return "caution";
+  if(grade==="B-") return "stop";
+  return "";
+}
 
 function recomputeAll(){
   // ---- Market Conditions ----
@@ -72,13 +93,25 @@ function recomputeAll(){
   document.getElementById("b-neutPts").textContent = bias.neutPts;
   document.getElementById("b-preConv").textContent = bias.preConv;
   document.getElementById("b-dolResult").textContent = bias.dolResult;
-  document.getElementById("b-direction").textContent = bias.direction || "—";
-  document.getElementById("b-convictionStars").textContent = bias.convictionLabel;
-  document.getElementById("b-verdict").textContent = bias.verdict;
+  const bDirectionEl = document.getElementById("b-direction");
+  const bDirColorCls = bias.direction==="Bearish" ? "stop" : bias.direction==="Bullish" ? "go" : "";
+  bDirectionEl.textContent = (bias.direction && bias.direction!=="n/a") ? bias.direction : "—";
+  bDirectionEl.className = "v" + (bDirColorCls ? " "+bDirColorCls : "");
+  // A plain (unmodified) conviction reads as just "Bearish"/"Bullish" — identical to the
+  // Bias direction row right above it. "Neutral" makes clear it's the conviction *level*
+  // that's neutral, not the direction itself.
+  document.getElementById("b-convictionStars").textContent =
+    (bias.conviction!==null && !bias.convictionModifier) ? "Neutral" : bias.convictionLabel;
+  const bVerdictEl = document.getElementById("b-verdict");
+  bVerdictEl.textContent = bias.verdict==="—" ? "—" : toTitleCase(bias.verdict);
+  bVerdictEl.className = "v" + (bias.verdict.indexOf("BEARISH")>-1 ? " stop"
+    : bias.verdict.indexOf("BULLISH")>-1 ? " go" : "");
   document.getElementById("bias-branch").textContent = "Active branch: " + bias.activeBranch;
   // Direction leads, conviction follows — mirroring the Conditions panel (score, then verdict).
-  document.getElementById("bias-stars").textContent =
-    (bias.direction && bias.direction!=="n/a") ? bias.direction : "—";
+  const biasStarsEl = document.getElementById("bias-stars");
+  const biasStarsFmt = formatBiasDirection(bias.direction);
+  biasStarsEl.textContent = biasStarsFmt.text;
+  biasStarsEl.className = "score" + (biasStarsFmt.cls ? " "+biasStarsFmt.cls : "");
   const biasPill = document.getElementById("bias-verdict-pill");
   if(bias.conviction !== null){
     // The direction is already the big text right next to this pill (bias-stars above),
@@ -124,14 +157,24 @@ function recomputeAll(){
     document.getElementById("rc-sameLevel").textContent = setup.sameLevel ? "Yes" : "No";
     document.getElementById("rc-failCount").textContent = setup.fails + " / 3";
     document.getElementById("rc-setupTypeLabel").textContent = setupType;
-    document.getElementById("rc-gradeVal").textContent = setup.grade;
+    const rcGradeCls = gradeColorClass(setup.grade);
+    const rcGradeEl = document.getElementById("rc-gradeVal");
+    rcGradeEl.textContent = setup.grade;
+    rcGradeEl.className = "v" + (rcGradeCls ? " "+rcGradeCls : "");
     document.getElementById("rc-riskFunded").textContent = setup.risk ? fmtPct(setup.risk.funded) : "—";
+    document.getElementById("rc-riskFunded").className = "v" + (setup.risk ? " gold" : "");
     document.getElementById("rc-riskChallenge").textContent = setup.risk ? fmtPct(setup.risk.challenge) : "—";
+    document.getElementById("rc-riskChallenge").className = "v" + (setup.risk ? " gold" : "");
   }
 
-  document.getElementById("s-gradeVal").textContent = setup.grade;
+  const sGradeCls = gradeColorClass(setup.grade);
+  const sGradeValEl = document.getElementById("s-gradeVal");
+  sGradeValEl.textContent = setup.grade;
+  sGradeValEl.className = "v" + (sGradeCls ? " "+sGradeCls : "");
   document.getElementById("s-riskFunded").textContent = setup.risk ? fmtPct(setup.risk.funded) : "—";
+  document.getElementById("s-riskFunded").className = "v" + (setup.risk ? " gold" : "");
   document.getElementById("s-riskChallenge").textContent = setup.risk ? fmtPct(setup.risk.challenge) : "—";
+  document.getElementById("s-riskChallenge").className = "v" + (setup.risk ? " gold" : "");
   document.getElementById("s-grade").textContent = setup.grade==="No Trade" ? "—" : setup.grade;
   const sPill = document.getElementById("s-grade-pill");
   sPill.textContent = setup.grade;

@@ -6,7 +6,26 @@
       "Bash(osascript -l JavaScript)",
       "Bash(osascript -l JavaScript -e ' *)",
       "Bash(python3 - trading-checklist.html)",
-      "Bash(echo \"removed: $?\")"
+      "Bash(echo \"removed: $?\")",
+      "Bash(python3 -c \"import PIL; print\\('Pillow', PIL.__version__\\)\")",
+      "Bash(python3 -c \"import cairosvg; print\\('cairosvg ok'\\)\")",
+      "Bash(mkdir -p /private/tmp/claude-501/-Users-macben-Downloads-build/80ee2375-d474-471f-a7b0-e33105217de8/scratchpad/favicon-test)",
+      "Bash(cat)",
+      "Bash(qlmanage -t -s 512 -o . test.svg)",
+      "Bash(qlmanage -t -s 1024 -o . master.svg)",
+      "Bash(qlmanage -t -s 32 -o . master.svg)",
+      "Bash(rm -f master.svg.png master_1024_check.png)",
+      "Bash(python3)",
+      "Bash(sips -g all favicon.ico)",
+      "Bash(rm -f master.svg.png)",
+      "Bash(set -e)",
+      "Bash(cp __TRACKED_VAR__/favicon.ico __TRACKED_VAR__/favicon.ico)",
+      "Bash(cp __TRACKED_VAR__/favicon-16x16.png __TRACKED_VAR__/favicon-16x16.png)",
+      "Bash(cp __TRACKED_VAR__/favicon-32x32.png __TRACKED_VAR__/favicon-32x32.png)",
+      "Bash(cp __TRACKED_VAR__/apple-touch-icon.png __TRACKED_VAR__/apple-touch-icon.png)"
+    ],
+    "additionalDirectories": [
+      "/Users/macben/Downloads/build"
     ]
   }
 }

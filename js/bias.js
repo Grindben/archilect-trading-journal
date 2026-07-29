@@ -94,10 +94,10 @@ function computeBias(){
     ? (convictionModifier ? convictionModifier+" " : "") + direction
     : "—";
 
-  // Draw on liquidity
-  const dolT = document.getElementById("b-dolType").value;
+  // Draw on liquidity — just the level itself (e.g. "2.5 SD Level"), not prefixed with
+  // the Type field above it (e.g. "SD Level — 2.5 SD Level" was redundant with it).
   const dolL = document.getElementById("b-dolLevel").value;
-  const dolResult = dolL ? (dolT+" — "+dolL) : "—";
+  const dolResult = dolL || "—";
 
   // Verdict
   let verdict;

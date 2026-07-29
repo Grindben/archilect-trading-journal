@@ -46,6 +46,17 @@ function to12HourLabel(hhmm){
   return h + ":" + (parts[1]||"00") + " " + ampm;
 }
 
+// Shares js/market-conditions.js's validated state — once the market conditions criteria
+// are validated, this panel becomes a read-only showcase too: no adding, no removing.
+function isNewsLocked(){
+  return typeof mcValidated !== "undefined" && mcValidated;
+}
+function applyNewsLockState(){
+  const form = document.getElementById("news-form");
+  if(form) form.style.display = isNewsLocked() ? "none" : "";
+  renderNewsList();
+}
+
 function loadNews(){
   try{ return JSON.parse(localStorage.getItem(NEWS_KEY)) || []; }catch(e){ return []; }
 }
@@ -64,10 +75,12 @@ function groupNewsByTime(list){
   return groups;
 }
 function renderNewsList(){
+  const locked = isNewsLocked();
   const list = loadNews().slice().sort((a,b)=>String(a.time||"").localeCompare(String(b.time||"")));
   const wrap = document.getElementById("news-list");
   const empty = document.getElementById("news-empty");
   wrap.innerHTML = "";
+  empty.textContent = locked ? "No major news for the day." : "No news for today.";
   empty.classList.toggle("show", !list.length);
   groupNewsByTime(list).forEach(group=>{
     const groupEl = document.createElement("div");
@@ -83,20 +96,24 @@ function renderNewsList(){
       const text = document.createElement("span");
       text.className = "news-row-text";
       text.textContent = n.text;
-      const del = document.createElement("button");
-      del.type = "button"; del.className = "news-row-del"; del.textContent = "✕";
-      del.setAttribute("aria-label", "Remove");
-      del.addEventListener("click", ()=>{
-        saveNews(loadNews().filter(x=>x.id!==n.id));
-        renderNewsList();
-      });
-      row.appendChild(time); row.appendChild(text); row.appendChild(del);
+      row.appendChild(time); row.appendChild(text);
+      if(!locked){
+        const del = document.createElement("button");
+        del.type = "button"; del.className = "news-row-del"; del.textContent = "✕";
+        del.setAttribute("aria-label", "Remove");
+        del.addEventListener("click", ()=>{
+          saveNews(loadNews().filter(x=>x.id!==n.id));
+          renderNewsList();
+        });
+        row.appendChild(del);
+      }
       groupEl.appendChild(row);
     });
     wrap.appendChild(groupEl);
   });
 }
 function addNewsEntry(){
+  if(isNewsLocked()) return;
   const hourEl = document.getElementById("news-hour");
   const minuteEl = document.getElementById("news-minute");
   const textEl = document.getElementById("news-text");

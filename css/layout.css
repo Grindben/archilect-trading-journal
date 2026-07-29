@@ -88,6 +88,8 @@ nav.stepper::-webkit-scrollbar{display:none;}
   padding:12px 4px 13px 4px;
   cursor:pointer; position:relative; background:none; border:none; color:inherit;
 }
+/* Locked until the previous step is validated (js/router.js applyStepGating). */
+.step:disabled{cursor:not-allowed; opacity:.4;}
 .step .rail{
   position:absolute; top:20px; left:-50%; width:100%; height:1.5px;
   background:var(--line); z-index:0;
@@ -174,6 +176,8 @@ body.page-out-back{ opacity:0; transform:translateX(30px); pointer-events:none; 
   font-size:36px; font-weight:700; letter-spacing:-.035em; line-height:1;
   font-variant-numeric:tabular-nums;
 }
+.summary .score.go{color:var(--go);}
+.summary .score.stop{color:var(--stop);}
 .summary .score .of10{font-size:15px; color:var(--faint); font-weight:500; letter-spacing:-.01em;}
 /* Collapses sideways so the verdict pill slides across, matching the header strip. */
 .summary .score.score-collapse{

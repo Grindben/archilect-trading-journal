@@ -23,7 +23,7 @@
 .obj-form .jf{min-width:150px;}
 .obj-empty{font-size:13.5px; color:var(--muted); margin-bottom:14px; line-height:1.6;}
 
-.dash-checklist-note{font-size:11px; color:#8b8c95; margin-top:10px; display:block;}
+.dash-checklist-note{font-size:11px; color:#8b8c95; margin:10px 0 14px 0; display:block;}
 
 @media (max-width:560px){
   .dash-accounts-grid{grid-template-columns:1fr;}

@@ -37,6 +37,7 @@
   --go:#0d8a5c;
   --go-soft:#e6f5ef;
   --go-line:#bfe3d4;
+  --go-deep:#0b6b47;
   --stop:#c62f22;
   --stop-soft:#fbebe9;
   --stop-line:#f3c9c4;
@@ -90,6 +91,7 @@ html[data-theme="dark"]{
   --go:#3fbf8a;
   --go-soft:rgba(63,191,138,.14);
   --go-line:rgba(63,191,138,.30);
+  --go-deep:#22a374;
   --stop:#f0776a;
   --stop-soft:rgba(240,119,106,.14);
   --stop-line:rgba(240,119,106,.30);

@@ -40,9 +40,15 @@ function saveChecklistSession(){
     biasDirection: c.bias.direction, biasConviction: c.bias.conviction, biasLabel: c.bias.convictionLabel,
     setupGrade: c.setup.grade, setupType: document.getElementById("s-setupType").value
   } : null;
+  // Persisted too, not just kept in memory — otherwise a reload would re-lock Bias/Setup
+  // (js/router.js applyStepGating) even after they'd already been validated once.
+  const validated = {
+    mc: typeof mcValidated !== "undefined" ? mcValidated : false,
+    bias: typeof biasValidated !== "undefined" ? biasValidated : false
+  };
   try{
     localStorage.setItem(CHECKLIST_KEY, JSON.stringify({
-      inputs: collectChecklistInputs(), computed, savedAt: new Date().toISOString()
+      inputs: collectChecklistInputs(), computed, validated, savedAt: new Date().toISOString()
     }));
   }catch(e){}
 }
@@ -52,7 +58,11 @@ function saveChecklistSession(){
 function restoreChecklistSession(){
   let saved;
   try{ saved = JSON.parse(localStorage.getItem(CHECKLIST_KEY)); }catch(e){ saved = null; }
-  if(!saved || !saved.inputs){ recomputeAll(); return; }
+  if(!saved || !saved.inputs){
+    recomputeAll();
+    if(typeof applyStepGating === "function") applyStepGating();
+    return;
+  }
   const {mc, pools, bias, setup} = saved.inputs;
 
   if(bias && bias["b-vol"]) document.getElementById("b-vol").value = bias["b-vol"];
@@ -84,5 +94,23 @@ function restoreChecklistSession(){
     if(el.classList.contains("seg")) setSegValue(el, setup[id]); else el.value = setup[id];
   });
   syncSelects();
+
+  // Restore whichever panels were already validated — same UI updates their own
+  // Validate button would have made, just replayed here instead of via a click.
+  const validated = saved.validated || {};
+  if(validated.mc && typeof mcValidated !== "undefined"){
+    mcValidated = true;
+    mcValidateBtn.style.display = "none";
+    mcEditBtn.style.display = "";
+    if(typeof applyNewsLockState === "function") applyNewsLockState();
+  }
+  if(validated.bias && typeof biasValidated !== "undefined"){
+    biasValidated = true;
+    biasValidateBtn.style.display = "none";
+    biasEditBtn.style.display = "";
+    if(typeof applyBiasLockState === "function") applyBiasLockState();
+  }
+
   recomputeAll();
+  if(typeof applyStepGating === "function") applyStepGating();
 }

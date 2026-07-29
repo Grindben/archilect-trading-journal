@@ -118,7 +118,7 @@
   font-size:14px; padding:4px 6px; border-radius:6px;
 }
 .news-row-del:hover{color:var(--stop); background:var(--stop-soft);}
-.news-empty{padding:20px 24px; margin-top:14px; font-size:12.5px; display:none;}
+.news-empty{padding:20px 24px; margin-top:14px; font-size:12.5px; display:none; border-style:solid;}
 .news-empty.show{display:block;}
 @media (max-width:560px){
   .news-form{flex-wrap:wrap;}
