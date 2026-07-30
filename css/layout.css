@@ -5,6 +5,29 @@ header.app-header{
   backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line);
   padding:20px 20px 0 20px;
+  /* The stepper inside collapses/expands on scroll (js/header-scroll.js). Without this, the
+     browser's scroll-anchoring "helpfully" nudges scrollY to compensate for the header's own
+     height change, which the scroll listener then reads as the user reversing direction —
+     collapse and expand fire back-to-back in a feedback loop. */
+  overflow-anchor:none;
+  transition:padding-bottom .3s cubic-bezier(.33,.1,.25,1);
+}
+/* With the stepper's own height collapsed away, the status strip loses the breathing room its
+   padding used to give it above the header's border-bottom — this puts a little back. */
+header.app-header.stepper-collapsed{ padding-bottom:16px; }
+body.booting header.app-header{ transition:none; }
+/* Re-expanding pushes the sticky header taller, which pushes the page content down under it;
+   scroll anchoring compensates by silently absorbing that much of the user's upward scroll to
+   keep the content visually still, so the longer the transition runs, the longer scrolling up
+   feels like it's "stuck". components/collapsible.js's default .46s/.42s timing is tuned for
+   the checklist's Yes/No sections, which aren't scroll-linked and don't have this problem —
+   scoped down here so only the header's own stepper animates fast enough that the effect is
+   barely noticeable. */
+header.app-header .collapsible{
+  transition:grid-template-rows .16s cubic-bezier(.33,.1,.25,1), opacity .12s ease;
+}
+header.app-header .collapsible.collapsed{
+  transition:grid-template-rows .14s cubic-bezier(.33,.1,.25,1), opacity .1s ease;
 }
 .header-top{
   display:flex; align-items:center; justify-content:space-between;

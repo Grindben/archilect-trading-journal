@@ -22,10 +22,33 @@
       "Bash(cp __TRACKED_VAR__/favicon.ico __TRACKED_VAR__/favicon.ico)",
       "Bash(cp __TRACKED_VAR__/favicon-16x16.png __TRACKED_VAR__/favicon-16x16.png)",
       "Bash(cp __TRACKED_VAR__/favicon-32x32.png __TRACKED_VAR__/favicon-32x32.png)",
-      "Bash(cp __TRACKED_VAR__/apple-touch-icon.png __TRACKED_VAR__/apple-touch-icon.png)"
+      "Bash(cp __TRACKED_VAR__/apple-touch-icon.png __TRACKED_VAR__/apple-touch-icon.png)",
+      "mcp__claude_ai_Notion__notion-fetch",
+      "Bash(python3 -m http.server 8934)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8934/risk-sizing.html)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8934/css/risk-sizing.css)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8934/js/risk-sizing.js)",
+      "Bash(node -e \"require.resolve\\('playwright'\\)\")",
+      "Bash(python3 -c \"import playwright\")",
+      "Bash(pip3 --version)",
+      "Bash(python3 -c \"import urllib.request; urllib.request.urlopen\\('https://pypi.org', timeout=3\\); print\\('net ok'\\)\")",
+      "Bash(pip3 install *)",
+      "Bash(python3 -m playwright install chromium)",
+      "Bash(python3 /private/tmp/claude-501/-Users-macben-Downloads-build/757754a1-aa3e-49cc-a6ff-ff2f52c8a79a/scratchpad/test_risk_sizing.py)",
+      "Bash(lsof -ti:8934 -sTCP:LISTEN)",
+      "Bash(xargs -r kill)",
+      "Bash(rm -f /private/tmp/claude-501/-Users-macben-Downloads-build/757754a1-aa3e-49cc-a6ff-ff2f52c8a79a/scratchpad/*.png; echo done)",
+      "Bash(python3 -m http.server 8934 --directory /Users/macben/Downloads/build >/tmp/rs-server6.log 2>&1 & *)",
+      "Bash(rm -f /private/tmp/claude-501/-Users-macben-Downloads-build/757754a1-aa3e-49cc-a6ff-ff2f52c8a79a/scratchpad/*.png)",
+      "Bash(python3 -m http.server 8934 --directory /Users/macben/Downloads/build)",
+      "Bash(cp js/header-scroll.js /tmp/header-scroll.js.bak)",
+      "Bash(python3 -)",
+      "Bash(rm -f /private/tmp/claude-501/-Users-macben-Downloads-build/757754a1-aa3e-49cc-a6ff-ff2f52c8a79a/scratchpad/*.png /tmp/header-scroll.js.bak; echo done)"
     ],
     "additionalDirectories": [
-      "/Users/macben/Downloads/build"
+      "/Users/macben/Downloads/build",
+      "/private/tmp/claude-501/-Users-macben-Downloads-build/757754a1-aa3e-49cc-a6ff-ff2f52c8a79a/scratchpad",
+      "/tmp"
     ]
   }
 }

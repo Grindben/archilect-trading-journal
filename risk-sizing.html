@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="view-transition" content="same-origin">
+<title>Archilect — Risk Sizing</title>
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<script src="js/theme-preboot.js"></script>
+<script src="js/nav-direction-preboot.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/journal-widget.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/journal-page.css">
+<link rel="stylesheet" href="css/risk-sizing.css">
+<link rel="stylesheet" href="css/navigation.css">
+</head>
+<body class="booting no-stepper">
+
+<header class="app-header">
+  <div class="header-top">
+    <a class="brand" href="index.html" aria-label="Back to Dashboard">
+      <span class="mark">Archilect</span>
+      <span class="sub">Capital Management</span>
+    </a>
+    <nav class="home-nav">
+      <a class="home-navlink" href="trading-checklist.html">Trading Checklist</a>
+      <a class="home-navlink" href="trading-journal.html">Trading Journal</a>
+      <a class="home-navlink on" href="risk-sizing.html">Risk Sizing</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Toggle day / night theme" title="Toggle day / night theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="header-cta" id="loginBtn" type="button">Log In</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+    <section class="j-head">
+      <div>
+        <h1 class="j-title">Risk Sizing</h1>
+        <p class="j-sub">Pick an asset, set your risk and your stop — get the contract count instantly.</p>
+      </div>
+    </section>
+
+    <div class="rs-grid">
+      <div class="card rs-inputs">
+
+        <div class="j2-group">
+          <div class="j2-group-title">Asset</div>
+          <div class="rs-asset-set" id="rs-asset" data-value="MES">
+            <button type="button" class="rs-asset-btn" data-val="ES"><span class="rs-asset-name">ES</span><span class="rs-asset-meta">$50 / pt</span></button>
+            <button type="button" class="rs-asset-btn" data-val="NQ"><span class="rs-asset-name">NQ</span><span class="rs-asset-meta">$20 / pt</span></button>
+            <button type="button" class="rs-asset-btn" data-val="MES"><span class="rs-asset-name">MES</span><span class="rs-asset-meta">$5 / pt</span></button>
+            <button type="button" class="rs-asset-btn" data-val="MNQ"><span class="rs-asset-name">MNQ</span><span class="rs-asset-meta">$2 / pt</span></button>
+          </div>
+        </div>
+
+        <div class="j2-group">
+          <div class="j2-group-title">Account</div>
+          <div class="jf-grid rs-grid-3">
+            <div class="jf"><label>Account size ($)</label><input id="rs-account" type="number" placeholder="50000" step="any" min="0"></div>
+          </div>
+        </div>
+
+        <div class="j2-group">
+          <div class="j2-group-title">Risk &amp; stop</div>
+          <div class="rs-mode-set" id="rs-mode" data-value="pct">
+            <button type="button" class="seg-btn" data-val="pct">% of account</button>
+            <button type="button" class="seg-btn" data-val="fixed">Fixed $</button>
+          </div>
+          <div class="jf-grid rs-grid-3" style="margin-top:14px;">
+            <div class="jf" id="rs-pct-field"><label>Risk (%)</label><input id="rs-riskPct" type="number" placeholder="0.5" step="0.01" min="0"></div>
+            <div class="jf" id="rs-fixed-field" style="display:none;"><label>Risk ($)</label><input id="rs-riskFixed" type="number" placeholder="250" step="any" min="0"></div>
+            <div class="jf"><label>Stop loss (points)</label><input id="rs-sl" type="number" placeholder="10" step="0.25" min="0"></div>
+          </div>
+          <div class="rs-preset-row">
+            <span class="rs-preset-label">Risk presets (%)</span>
+            <div class="chipset rs-presets" id="rs-risk-presets">
+              <button type="button" class="chip" data-val="0.2">0.2%</button>
+              <button type="button" class="chip" data-val="0.25">0.25%</button>
+              <button type="button" class="chip" data-val="0.3">0.3%</button>
+              <button type="button" class="chip" data-val="0.4">0.4%</button>
+              <button type="button" class="chip" data-val="0.5">0.5%</button>
+              <button type="button" class="chip" data-val="0.65">0.65%</button>
+              <button type="button" class="chip" data-val="0.75">0.75%</button>
+              <button type="button" class="chip" data-val="1">1%</button>
+              <button type="button" class="chip" data-val="1.25">1.25%</button>
+              <button type="button" class="chip" data-val="1.5">1.5%</button>
+            </div>
+          </div>
+          <div class="rs-preset-row">
+            <span class="rs-preset-label">Stop loss presets (pts)</span>
+            <div class="chipset rs-presets" id="rs-sl-presets">
+              <button type="button" class="chip chip-sl" data-val="5">5</button>
+              <button type="button" class="chip chip-sl" data-val="10">10</button>
+              <button type="button" class="chip chip-sl" data-val="15">15</button>
+              <button type="button" class="chip chip-sl" data-val="20">20</button>
+              <button type="button" class="chip chip-sl" data-val="25">25</button>
+              <button type="button" class="chip chip-sl" data-val="30">30</button>
+              <button type="button" class="chip chip-sl" data-val="40">40</button>
+              <button type="button" class="chip chip-sl" data-val="50">50</button>
+              <button type="button" class="chip chip-sl" data-val="60">60</button>
+              <button type="button" class="chip chip-sl" data-val="70">70</button>
+              <button type="button" class="chip chip-sl" data-val="80">80</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card rs-result">
+        <span class="rs-result-label">Contracts to take</span>
+        <div class="rs-result-value" id="rs-contracts">—</div>
+        <div class="rs-result-sub" id="rs-warning"></div>
+        <div class="rs-breakdown" id="rs-breakdown"></div>
+      </div>
+    </div>
+
+</main>
+
+<footer class="credit">Local tool — all data stays in this file / your browser. No connection required after the first load.</footer>
+
+<script src="components/theme-toggle.js"></script>
+<script src="js/risk-sizing.js"></script>
+<script src="js/page-transitions.js"></script>
+</body>
+</html>

@@ -5,7 +5,7 @@
    wrapper that animates its height, so nothing about the layout has to change.
    ============================================================ */
 const collapsibles = {};
-["b-monday-row","b-lonHigh-row","b-lonLow-row","b-sweep-group","b-offliq-group","b-conviction-group","b-intermarket-group"].forEach(id=>{
+["stepperNav","b-monday-row","b-lonHigh-row","b-lonLow-row","b-sweep-group","b-offliq-group","b-conviction-group","b-intermarket-group"].forEach(id=>{
   const target = document.getElementById(id);
   if(!target) return;
   const wrap = document.createElement("div");

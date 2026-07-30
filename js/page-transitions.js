@@ -12,7 +12,7 @@
    js/nav-direction-preboot.js to pick up before its own first paint.
    ============================================================ */
 const PT_DURATION = 200; // ms — keep in sync with body's transition duration in css/layout.css
-const PT_PAGE_ORDER = ["index.html", "trading-checklist.html", "trading-journal.html"];
+const PT_PAGE_ORDER = ["index.html", "trading-checklist.html", "trading-journal.html", "risk-sizing.html"];
 const ptReduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function ptPageName(href){
