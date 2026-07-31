@@ -24,8 +24,8 @@ biasValidateBtn.addEventListener("click", ()=>{
     biasValidateBtn.style.display = "none";
     biasEditBtn.style.display = "";
     applyBiasLockState();
+    recomputeAll(); // also persists biasValidated via saveChecklistSession(), see js/checklist-state.js
     if(typeof applyStepGating === "function") applyStepGating();
-    if(typeof saveChecklistSession === "function") saveChecklistSession();
   });
 });
 biasEditBtn.addEventListener("click", ()=>{
@@ -34,7 +34,7 @@ biasEditBtn.addEventListener("click", ()=>{
     biasEditBtn.style.display = "none";
     biasValidateBtn.style.display = "";
     applyBiasLockState();
+    recomputeAll();
     if(typeof applyStepGating === "function") applyStepGating();
-    if(typeof saveChecklistSession === "function") saveChecklistSession();
   });
 });

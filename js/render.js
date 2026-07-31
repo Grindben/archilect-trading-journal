@@ -126,7 +126,9 @@ function recomputeAll(){
     biasPill.textContent = bias.verdict;
     biasPill.className = "verdict-pill " + (cls==="neutral" ? "grey" : cls);
   }
-  setLight("bias", lightClassFor("bias", bias.verdict));
+  // Once Bias is validated, the stepper dot commits to green regardless of verdict content —
+  // it now reads as "this step is done", not "here's the current bias colour".
+  setLight("bias", (typeof biasValidated !== "undefined" && biasValidated) ? "go" : lightClassFor("bias", bias.verdict));
   document.getElementById("state-bias").textContent = bias.direction && bias.direction!=="n/a" ? bias.direction : "—";
 
   // ---- Setup ----
@@ -135,19 +137,31 @@ function recomputeAll(){
   // Reverse / Catch Up are only meaningful once the bias comes from the OF+Liquidity or
   // Monday branch (Low/Medium volatility) — a High Volatility day only ever offers 2 Stages.
   const setupType = refreshSetupTypeOptions(bias.vol);
+  // Bias & MTF Context (4H/1H/15m direction + alignment) stays visible for both "2 Stages"
+  // and "None" — Reverse/Catch Up has its own equivalent card (setup-rc) instead.
+  document.getElementById("setup-biasContext").classList.toggle("is-hidden", setupType === "Reverse Setup" || setupType === "Catch Up Setup");
   document.getElementById("setup-2stages").classList.toggle("is-hidden", setupType !== "2 Stages");
-  document.getElementById("setup-rc").classList.toggle("is-hidden", setupType === "2 Stages");
+  document.getElementById("setup-rc").classList.toggle("is-hidden", setupType !== "Reverse Setup" && setupType !== "Catch Up Setup");
 
+  // Alignment reads are independent of which Setup Type ends up active below, so refresh
+  // them whenever the context card is visible (2 Stages or None) rather than only on 2 Stages.
   let setup;
-  if(setupType === "2 Stages"){
-    setup = computeSetup(bias);
-    document.getElementById("s-4hAlign").textContent = setup.align4h;
-    document.getElementById("s-1hAlign").textContent = setup.align1h;
-    document.getElementById("s-15mAlign").textContent = setup.align15;
-    document.getElementById("s-mtfAlign").textContent = setup.mtfAlignment;
-    document.getElementById("s-signal").textContent = setup.signal;
-    document.getElementById("s-candleType").textContent = setup.candleType;
-    document.getElementById("s-entry").textContent = setup.entry;
+  if(setupType === "2 Stages" || setupType === "None"){
+    const stagesCtx = computeSetup(bias);
+    document.getElementById("s-4hAlign").textContent = stagesCtx.align4h;
+    document.getElementById("s-1hAlign").textContent = stagesCtx.align1h;
+    document.getElementById("s-15mAlign").textContent = stagesCtx.align15;
+    if(setupType === "2 Stages"){
+      document.getElementById("s-mtfAlign").textContent = stagesCtx.mtfAlignment;
+      document.getElementById("s-signal").textContent = stagesCtx.signal;
+      document.getElementById("s-candleType").textContent = stagesCtx.candleType;
+      document.getElementById("s-entry").textContent = stagesCtx.entry;
+      setup = stagesCtx;
+    } else {
+      // No setup chosen for the day — Setup Scoring / Result / Guide stay hidden above,
+      // this just carries an empty result through the shared grade/risk rendering below.
+      setup = {grade:"No Setup", risk:null};
+    }
   } else {
     setup = computeReverseCatchUp(bias, setupType);
     document.getElementById("rc-direction").textContent = setup.direction;
@@ -175,7 +189,7 @@ function recomputeAll(){
   document.getElementById("s-riskFunded").className = "v" + (setup.risk ? " gold" : "");
   document.getElementById("s-riskChallenge").textContent = setup.risk ? fmtPct(setup.risk.challenge) : "—";
   document.getElementById("s-riskChallenge").className = "v" + (setup.risk ? " gold" : "");
-  document.getElementById("s-grade").textContent = setup.grade==="No Trade" ? "—" : setup.grade;
+  document.getElementById("s-grade").textContent = (setup.grade==="No Trade" || setup.grade==="No Setup") ? "—" : setup.grade;
   const sPill = document.getElementById("s-grade-pill");
   sPill.textContent = setup.grade;
   sPill.className = "verdict-pill " + (lightClassFor("setup",setup.grade)==="go"?"go":lightClassFor("setup",setup.grade)==="caution"?"caution":lightClassFor("setup",setup.grade)==="stop"?"stop":"grey");

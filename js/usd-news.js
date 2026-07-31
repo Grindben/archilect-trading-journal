@@ -7,6 +7,7 @@
    stored as 24-hour "HH:MM" so the list sorts correctly.
    ============================================================ */
 const NEWS_KEY = "archilect_usd_news_v1";
+const NEWS_DAY_KEY = "archilect_usd_news_day_v1";
 
 // Re-schedules itself against the exact time of the next midnight rather than a fixed
 // interval, so it's unaffected by drift and self-corrects if the machine was asleep.
@@ -17,8 +18,18 @@ function updateTodayDate(){
 function scheduleTodayDateUpdate(){
   const now = new Date();
   const nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 0, 0, 2);
-  setTimeout(()=>{ updateTodayDate(); scheduleTodayDateUpdate(); }, nextMidnight - now);
+  setTimeout(()=>{ updateTodayDate(); clearNewsIfNewDay(); scheduleTodayDateUpdate(); }, nextMidnight - now);
 }
+// News is a same-day log: any entry left over from a previous day is stale, so
+// wipe it the first time the panel is touched (page load or midnight tick) on a new day.
+function clearNewsIfNewDay(){
+  const today = new Date().toDateString();
+  if(localStorage.getItem(NEWS_DAY_KEY) !== today){
+    saveNews([]);
+    try{ localStorage.setItem(NEWS_DAY_KEY, today); }catch(e){}
+  }
+}
+clearNewsIfNewDay();
 updateTodayDate();
 scheduleTodayDateUpdate();
 

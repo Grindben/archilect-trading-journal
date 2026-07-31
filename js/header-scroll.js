@@ -33,7 +33,7 @@
 
   const REVEAL_NEAR_TOP = 60;   // always show once back near the top of the page
   const FALLBACK_IGNORE_BELOW = 40; // scrollY fallback only — coarse on purpose
-  const LOCK_MS = 220;          // >= the header-scoped .collapsible transition (css/layout.css)
+  const LOCK_MS = 340;          // >= the header-scoped .collapsible transition (css/layout.css)
 
   let collapsed = false;
   let locked = false;

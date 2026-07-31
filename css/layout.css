@@ -24,10 +24,10 @@ body.booting header.app-header{ transition:none; }
    scoped down here so only the header's own stepper animates fast enough that the effect is
    barely noticeable. */
 header.app-header .collapsible{
-  transition:grid-template-rows .16s cubic-bezier(.33,.1,.25,1), opacity .12s ease;
+  transition:grid-template-rows .32s cubic-bezier(.33,.1,.25,1), opacity .24s ease;
 }
 header.app-header .collapsible.collapsed{
-  transition:grid-template-rows .14s cubic-bezier(.33,.1,.25,1), opacity .1s ease;
+  transition:grid-template-rows .28s cubic-bezier(.33,.1,.25,1), opacity .2s ease;
 }
 .header-top{
   display:flex; align-items:center; justify-content:space-between;

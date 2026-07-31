@@ -51,7 +51,9 @@ function computeSetup(biasResult){
 // selection if it's no longer valid, and returns the (possibly corrected) value.
 function refreshSetupTypeOptions(vol){
   const sel = document.getElementById("s-setupType");
-  const desired = (vol==="High") ? ["2 Stages"] : ["2 Stages","Reverse Setup","Catch Up Setup"];
+  // "None" only makes sense once Reverse/Catch Up are even on the table (Low/Medium) — a High
+  // Volatility day always has a setup (2 Stages), so there's nothing to opt out of.
+  const desired = (vol==="High") ? ["2 Stages"] : ["None","2 Stages","Reverse Setup","Catch Up Setup"];
   const current = Array.from(sel.options).map(o=>o.value);
   if(current.length !== desired.length || current.some((v,i)=>v!==desired[i])){
     const keep = desired.indexOf(sel.value)>-1 ? sel.value : "2 Stages";

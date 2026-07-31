@@ -58,6 +58,13 @@ function saveChecklistSession(){
 function restoreChecklistSession(){
   let saved;
   try{ saved = JSON.parse(localStorage.getItem(CHECKLIST_KEY)); }catch(e){ saved = null; }
+  // Conditions/Bias/Setup are a same-day log, same as the news panel (js/usd-news.js):
+  // a session saved on a previous calendar day is stale, so start clean — inputs blank,
+  // Validate criteria back up instead of Edit — rather than restoring yesterday's answers.
+  if(saved && saved.savedAt && new Date(saved.savedAt).toDateString() !== new Date().toDateString()){
+    try{ localStorage.removeItem(CHECKLIST_KEY); }catch(e){}
+    saved = null;
+  }
   if(!saved || !saved.inputs){
     recomputeAll();
     if(typeof applyStepGating === "function") applyStepGating();
