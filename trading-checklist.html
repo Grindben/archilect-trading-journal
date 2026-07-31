@@ -326,6 +326,33 @@
     </div>
     </div>
 
+    <div id="setup-rc-context">
+    <div class="section-group">
+      <div class="section-title"><span class="idx">A</span>HTF &amp; MTF Context</div>
+      <div class="card">
+        <div class="field-row">
+          <label>Setup direction</label>
+          <span class="readonly-field" id="rc-direction">—</span>
+        </div>
+        <div class="field-row">
+          <label>Bias direction (from Bias sheet)</label>
+          <span class="readonly-field" id="rc-biasFromSheet">—</span>
+        </div>
+        <div class="field-row">
+          <label>4H chart direction</label>
+          <select id="rc-4h"><option value="Bullish">Bullish</option><option value="Bearish" selected>Bearish</option><option value="Neutral">Neutral</option></select>
+        </div>
+        <div class="field-row">
+          <label>1H chart direction</label>
+          <select id="rc-1h"><option value="Bullish">Bullish</option><option value="Bearish" selected>Bearish</option><option value="Neutral">Neutral</option></select>
+        </div>
+        <div class="calc-row"><span class="k">4H aligned with bias</span><span class="v" id="rc-4hAlign">—</span></div>
+        <div class="calc-row"><span class="k">1H aligned with bias</span><span class="v" id="rc-1hAlign">—</span></div>
+      </div>
+      <div class="hint">A Reverse Setup is always taken against the bias; a Catch Up Setup is always taken aligned with it. The 4H/1H reads above are informational only — they do not affect the grade below.</div>
+    </div>
+    </div>
+
     <div class="section-group">
       <div class="section-title"><span class="idx">Type</span>Setup Type</div>
       <div class="card">
@@ -397,31 +424,6 @@
     </div>
 
     <div id="setup-rc">
-    <div class="section-group">
-      <div class="section-title"><span class="idx">A</span>HTF &amp; MTF Context</div>
-      <div class="card">
-        <div class="field-row">
-          <label>Setup direction</label>
-          <span class="readonly-field" id="rc-direction">—</span>
-        </div>
-        <div class="field-row">
-          <label>Bias direction (from Bias sheet)</label>
-          <span class="readonly-field" id="rc-biasFromSheet">—</span>
-        </div>
-        <div class="field-row">
-          <label>4H chart direction</label>
-          <select id="rc-4h"><option value="Bullish">Bullish</option><option value="Bearish" selected>Bearish</option><option value="Neutral">Neutral</option></select>
-        </div>
-        <div class="field-row">
-          <label>1H chart direction</label>
-          <select id="rc-1h"><option value="Bullish">Bullish</option><option value="Bearish" selected>Bearish</option><option value="Neutral">Neutral</option></select>
-        </div>
-        <div class="calc-row"><span class="k">4H aligned with bias</span><span class="v" id="rc-4hAlign">—</span></div>
-        <div class="calc-row"><span class="k">1H aligned with bias</span><span class="v" id="rc-1hAlign">—</span></div>
-      </div>
-      <div class="hint">A Reverse Setup is always taken against the bias; a Catch Up Setup is always taken aligned with it. The 4H/1H reads above are informational only — they do not affect the grade below.</div>
-    </div>
-
     <div class="section-group">
       <div class="section-title"><span class="idx">B</span>Synchronization Scoring</div>
       <div class="card">

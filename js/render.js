@@ -141,7 +141,9 @@ function recomputeAll(){
   // and "None" — Reverse/Catch Up has its own equivalent card (setup-rc) instead.
   document.getElementById("setup-biasContext").classList.toggle("is-hidden", setupType === "Reverse Setup" || setupType === "Catch Up Setup");
   document.getElementById("setup-2stages").classList.toggle("is-hidden", setupType !== "2 Stages");
-  document.getElementById("setup-rc").classList.toggle("is-hidden", setupType !== "Reverse Setup" && setupType !== "Catch Up Setup");
+  const isRC = setupType === "Reverse Setup" || setupType === "Catch Up Setup";
+  document.getElementById("setup-rc-context").classList.toggle("is-hidden", !isRC);
+  document.getElementById("setup-rc").classList.toggle("is-hidden", !isRC);
 
   // Alignment reads are independent of which Setup Type ends up active below, so refresh
   // them whenever the context card is visible (2 Stages or None) rather than only on 2 Stages.
