@@ -43,7 +43,9 @@
       "Bash(python3 -m http.server 8934 --directory /Users/macben/Downloads/build)",
       "Bash(cp js/header-scroll.js /tmp/header-scroll.js.bak)",
       "Bash(python3 -)",
-      "Bash(rm -f /private/tmp/claude-501/-Users-macben-Downloads-build/757754a1-aa3e-49cc-a6ff-ff2f52c8a79a/scratchpad/*.png /tmp/header-scroll.js.bak; echo done)"
+      "Bash(rm -f /private/tmp/claude-501/-Users-macben-Downloads-build/757754a1-aa3e-49cc-a6ff-ff2f52c8a79a/scratchpad/*.png /tmp/header-scroll.js.bak; echo done)",
+      "Bash(node --check js/bias-lock.js)",
+      "Bash(node --check js/bias-pools.js)"
     ],
     "additionalDirectories": [
       "/Users/macben/Downloads/build",
