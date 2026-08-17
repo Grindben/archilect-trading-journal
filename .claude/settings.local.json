@@ -45,12 +45,32 @@
       "Bash(python3 -)",
       "Bash(rm -f /private/tmp/claude-501/-Users-macben-Downloads-build/757754a1-aa3e-49cc-a6ff-ff2f52c8a79a/scratchpad/*.png /tmp/header-scroll.js.bak; echo done)",
       "Bash(node --check js/bias-lock.js)",
-      "Bash(node --check js/bias-pools.js)"
+      "Bash(node --check js/bias-pools.js)",
+      "Read(//Users/macben/Downloads/luxury-landing/**)",
+      "Bash(npm run *)",
+      "Read(//Users/macben/Downloads/luxury-landing/components/**)",
+      "Bash(node -e \"const m=require\\('lucide-react'\\); console.log\\(Object.keys\\(m\\).filter\\(k=>/instagram|facebook|linkedin/i.test\\(k\\)\\)\\)\")",
+      "Bash(node -e \"const m=require\\('lucide-react'\\); console.log\\(Object.keys\\(m\\).length\\)\")",
+      "Bash(curl -s -o /tmp/luxury-landing-page.html -w \"HTTP %{http_code}\\\\n\" http://localhost:3000/)",
+      "Read(//tmp/**)",
+      "Bash(sleep 1 && cat /tmp/luxury-landing-dev.log)",
+      "Read(//private/tmp/**)",
+      "Bash(command -v chromium-cli)",
+      "Bash(chromium-cli --help)",
+      "Bash(find / -iname \"*chromium-cli*\")",
+      "Read(//private/tmp/claude-501/bundled-skills/2.1.220/**)",
+      "Bash(mkdir -p /private/tmp/claude-501/-Users-macben-Downloads-build/5398a67d-e115-4f56-8589-cf80b96a4241/scratchpad)",
+      "Bash(npx --yes playwright@1.48.0 --version)",
+      "Bash(npx --yes playwright@1.48.0 install chromium --with-deps)",
+      "Read(//Users/macben/Downloads/**)"
     ],
     "additionalDirectories": [
       "/Users/macben/Downloads/build",
       "/private/tmp/claude-501/-Users-macben-Downloads-build/757754a1-aa3e-49cc-a6ff-ff2f52c8a79a/scratchpad",
-      "/tmp"
+      "/tmp",
+      "/Users/macben/Downloads/luxury-landing/components",
+      "/Users/macben/Downloads/luxury-landing/app",
+      "/Users/macben/Downloads"
     ]
   }
 }

@@ -15,6 +15,9 @@ const MC_SECTIONS = [
     {label:"Month / quarter end", points:-1, type:"penalty"},
   ]},
   { name:"HTF Structure", items:[
+    {label:"Is the fuel for expansion still present?", points:-2, type:"penalty", invert:true},
+    {label:"Is the key HTF liquidity draw obvious?", points:-2, type:"penalty", invert:true},
+    {label:"Is the daily chart displacing clearly?", points:-2, type:"penalty", invert:true},
     {label:"Price reached a Yearly / Monthly / Weekly / Daily H/L", points:-1, type:"penalty"},
     {label:"Overextension: ADR reached", points:0, type:"stop", alert:"Stop Trading for the day"},
     {label:"Overextension: AWR reached", points:-1, type:"penalty"},
@@ -26,10 +29,6 @@ const MC_SECTIONS = [
     {label:"Opposing PDA", points:-1, type:"penalty"},
     {label:"Session expansion sequences (2 consecutive sessions)", points:-1, type:"alert", alert:"Skip Next Session"},
     {label:"Seek & Destroy Profiles", points:-1, type:"penalty"},
-  ]},
-  { name:"Order Flow Alignment", items:[
-    {label:"4h Order Flow not aligned with the bias", points:-1, type:"penalty", alert:"Do not consider the Daily SSMT"},
-    {label:"1h Order Flow not aligned with the bias", points:-1, type:"penalty", alert:"Do not consider the 90' SSMT"},
   ]},
   { name:"Inter-Market Correlation", items:[
     {label:"Decoupled market", points:-1, type:"penalty"},

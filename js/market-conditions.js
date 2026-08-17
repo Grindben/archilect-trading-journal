@@ -60,8 +60,9 @@ function applyMcItemVisibility(stopTriggered){
     let sectionHasVisibleItem = false;
     section.items.forEach(item=>{
       const isYes = segVal(item._seg)==="Yes";
-      const isTriggeringStop = item.type==="stop" && isYes;
-      const show = stopTriggered ? isTriggeringStop : (mcValidated ? isYes : true);
+      const triggers = item.invert ? !isYes : isYes;
+      const isTriggeringStop = item.type==="stop" && triggers;
+      const show = stopTriggered ? isTriggeringStop : (mcValidated ? triggers : true);
       item._wrap.classList.toggle("collapsed", !show);
       // Locks any visible item once validated, including a Stop item that's triggering
       // the "STOP TRADING" state — going back to Edit is what un-locks it again.
@@ -103,8 +104,9 @@ function computeMarketConditions(){
   MC_SECTIONS.forEach(section=>{
     section.items.forEach(item=>{
       const yes = segVal(item._seg)==="Yes";
-      if(item._alertEl) item._alertEl.classList.toggle("show", yes && !!item.alert);
-      if(yes){
+      const triggers = item.invert ? !yes : yes;
+      if(item._alertEl) item._alertEl.classList.toggle("show", triggers && !!item.alert);
+      if(triggers){
         raw += item.points;
         if(item.type==="stop") stopTriggered = true;
         if(item.alert) alerts.push(item.alert);
