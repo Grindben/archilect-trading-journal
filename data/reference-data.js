@@ -14,10 +14,12 @@ const MC_SECTIONS = [
     {label:"Year end", points:-1, type:"penalty"},
     {label:"Month / quarter end", points:-1, type:"penalty"},
   ]},
+  { name:"Day-Grading criteria", items:[
+    {label:"Is the fuel for expansion still present?", points:-2.5, type:"penalty", invert:true, defaultYes:true},
+    {label:"Is the key HTF liquidity draw obvious?", points:-2.5, type:"penalty", invert:true, defaultYes:true},
+    {label:"Is the daily chart displacing clearly?", points:-2.5, type:"penalty", invert:true, defaultYes:true},
+  ]},
   { name:"HTF Structure", items:[
-    {label:"Is the fuel for expansion still present?", points:-2, type:"penalty", invert:true},
-    {label:"Is the key HTF liquidity draw obvious?", points:-2, type:"penalty", invert:true},
-    {label:"Is the daily chart displacing clearly?", points:-2, type:"penalty", invert:true},
     {label:"Price reached a Yearly / Monthly / Weekly / Daily H/L", points:-1, type:"penalty"},
     {label:"Overextension: ADR reached", points:0, type:"stop", alert:"Stop Trading for the day"},
     {label:"Overextension: AWR reached", points:-1, type:"penalty"},
@@ -32,13 +34,6 @@ const MC_SECTIONS = [
   ]},
   { name:"Inter-Market Correlation", items:[
     {label:"Decoupled market", points:-1, type:"penalty"},
-  ]},
-  { name:"Confluences", items:[
-    {label:"High-impact news after consolidation", points:1, type:"bonus"},
-    {label:"Multiple consolidated sessions", points:1, type:"bonus"},
-    {label:"HTF + every MTF order flow aligned", points:1, type:"bonus"},
-    {label:"Strong inter-market correlation", points:1, type:"bonus"},
-    {label:"Price above / below an HTF liquidity zone", points:1, type:"bonus"},
   ]},
 ];
 

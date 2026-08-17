@@ -42,7 +42,7 @@ MC_SECTIONS.forEach((section, si)=>{
     item._seg = seg;
     item._row = row;
     item._wrap = itemWrap;
-    wireSeg(seg);
+    wireSeg(seg, item.defaultYes ? "Yes" : "No");
   });
   group.appendChild(card);
   sectionInner.appendChild(group);
